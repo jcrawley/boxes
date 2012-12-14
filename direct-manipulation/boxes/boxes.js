@@ -17,6 +17,7 @@ var Boxes = {
             // We conclude drawing on either a mouseup or a mouseleave.
             .mouseup(this.endDrag)
             .mouseleave(this.endDrag);
+            //github
     },
 
     /**
@@ -110,6 +111,7 @@ var Boxes = {
                                 $(this.movingBox).css({"cursor" : "move"});
                                 printed = false;
                         }
+            
         }
     },
 
