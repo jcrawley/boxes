@@ -125,6 +125,8 @@ var Boxes = {
             } 
 =======
                 });
+                this.anchorX = event.pageX - this.deltaX;
+            	this.anchorY = event.pageY - this.deltay;
               
 
                 if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||(event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
