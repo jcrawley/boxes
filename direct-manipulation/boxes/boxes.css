@@ -23,40 +23,10 @@
     bottom:0;
     right:0;
     border: thin dotted black;
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     cursor: se-resize;
-}
-
-.bottomL-highlight {
-	bottom:0;
-	right:5;
-	border: thin dotted black;
-	width: 12px;
-	height: 12px;
-	position: absolute;
-	cursor: sw-resize;
-}
-
-.upperL-highlight {
-	top:0;
-	left:5;
-	border: thin dotted black;
-	width: 12px;
-	height: 12px;
-	position: absolute;
-	cursor: nw-resize;
-}
-
-.upperR-highlight {
-	top:0;
-	right:0;
-	border: thin dotted black;
-	width: 12px;
-	height: 12px;
-	position: absolute;
-	cursor: ne-resize;
 }
 
 .deleteMessage {
