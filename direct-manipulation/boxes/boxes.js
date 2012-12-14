@@ -17,6 +17,10 @@ var Boxes = {
             // We conclude drawing on either a mouseup or a mouseleave.
             .mouseup(this.endDrag)
             .mouseleave(this.endDrag);
+<<<<<<< HEAD
+=======
+            
+>>>>>>> nothing significant
     },
 
     /**
@@ -99,6 +103,7 @@ var Boxes = {
                 this.movingBox.offset({
                     left: event.pageX - this.deltaX,
                     top: event.pageY - this.deltaY
+<<<<<<< HEAD
             });
 
         if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||
@@ -118,6 +123,19 @@ var Boxes = {
                     $("<div></div>").appendTo(this.movingBox).addClass("upperR");
                     printed = false;
             } 
+=======
+                });
+              
+
+                if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||(event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
+                        $(this.movingBox).css({"cursor" :"url(icon_delete_small.png), auto"});
+                        }
+                        else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||(event.pageY - this.deltaY) < $("#drawing-area").height())){
+                                $(this.movingBox).css({"cursor" : "move"});
+                                printed = false;
+                        }
+            
+>>>>>>> nothing significant
         }
     },
 
@@ -150,10 +168,15 @@ var Boxes = {
         } else if (this.movingBox) {
             // Change state to "not-moving-anything" by clearing out
             // this.movingBox.
+<<<<<<< HEAD
             this.anchorX += this.beginX;
             this.anchorY += this.beginY;
              if(((event.pageX - this.deltaX) > $("#drawing-area").width() ||
              (event.pageY - this.deltaY) > $("#drawing-area").height())){
+=======
+             if(((event.pageX - this.deltaX) > $("#drawing-area").width() ||(event.pageY - this.deltaY) > $("#drawing-area").height())){
+             //alert( $("#drawing-area").width() + " " + $("#drawing-area").height());
+>>>>>>> nothing significant
                 $(this.movingBox).remove();
                 event.stopPropagation();
                 this.movingBox = null;
@@ -232,8 +255,6 @@ var Boxes = {
             // Eat up the event so that the drawing area does not
             // deal with it.
             event.stopPropagation();//pic 2 prevent the mousedown to cascade to drawing area and so on ...
-            this.beginX = event.pageX;
-            this.beginY = event.pageY;
         }
     },
     resize: function (event){
