@@ -59,7 +59,10 @@
 	cursor: ne-resize;
 }
 
-.deleteState {
-    background-color: #ff7b7b;
+.deleteMessage {
+    background-color: #f3172d;
     text-align: center;
+    text-decoration: blink;
+    text-transform: uppercase;
+    font-weight: bold;
 }

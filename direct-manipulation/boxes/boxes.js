@@ -105,10 +105,12 @@ var Boxes = {
             (event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
                 $(this.movingBox).css({"cursor" :"url(icon_delete_small.png), auto"});
                 this.movingBox.text("Release to delete");
+                this.movingBox.addClass('deleteMessage');
                 
         } else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||
                 (event.pageY - this.deltaY) < $("#drawing-area").height())){
                     $(this.movingBox).css({"cursor" : "move"});
+                    this.movingBox.removeClass('deleteMessage');
                     this.movingBox.text("");
                     	printed = false;
             } 
