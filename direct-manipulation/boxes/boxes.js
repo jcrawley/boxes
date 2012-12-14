@@ -51,9 +51,6 @@ var Boxes = {
             $("<div></div>").appendTo(this.drawingBox)
             .addClass("bottomR")
             .mousedown(this.resize);
-            $("<div></div>").appendTo(this.drawingBox).addClass("bottomL");
-            $("<div></div>").appendTo(this.drawingBox).addClass("upperR");
-            $("<div></div>").appendTo(this.drawingBox).addClass("upperL");
         }
 
     },
@@ -113,10 +110,7 @@ var Boxes = {
                     $(this.movingBox).css({"cursor" : "move"});
                     $(this.movingBox).text("");
                     $(this.movingBox).removeClass('deleteMessage');
-                    $("<div></div>").appendTo(this.movingBox).addClass("bottomL");
                     $("<div></div>").appendTo(this.movingBox).addClass("bottomR");
-                    $("<div></div>").appendTo(this.movingBox).addClass("upperL");
-                    $("<div></div>").appendTo(this.movingBox).addClass("upperR");
                     printed = false;
             } 
         }
@@ -176,10 +170,6 @@ var Boxes = {
     highlight: function () {
         $(this).addClass("box-highlight");
         $(this).find(".bottomR").addClass("bottomR-highlight");
-        $(this).find(".bottomL").addClass("bottomL-highlight");
-        $(this).find(".upperL").addClass("upperL-highlight");
-        $(this).find(".upperR").addClass("upperR-highlight");
-
     },
 
     /**
@@ -188,10 +178,6 @@ var Boxes = {
     unhighlight: function () {
         $(this).removeClass("box-highlight");
         $(this).find(".bottomR").removeClass("bottomR-highlight");
-        $(this).find(".bottomL").removeClass("bottomL-highlight");
-        $(this).find(".upperL").removeClass("upperL-highlight");
-        $(this).find(".upperR").removeClass("upperR-highlight");
-
     },
 
     /**
