@@ -63,7 +63,6 @@ var Boxes = {
      */
     trackDrag: function (event) {
         // Don't bother if we aren't tracking anything.
-        //alert(printed);
         if (this.drawingBox) {
             // Calculate the new box location and dimensions.  Note how
             // this might require a "corner switch."
@@ -77,6 +76,7 @@ var Boxes = {
                 .width(Math.abs(event.pageX - this.anchorX))
                 .height(Math.abs(event.pageY - this.anchorY));
             this.anchorX = (this.anchorX < event.pageX) ? this.anchorX : event.pageX;
+            
         } else if (this.resizingBox) {
             // Resizing the object.
              var newOffset = {
@@ -99,18 +99,19 @@ var Boxes = {
                 this.movingBox.offset({
                     left: event.pageX - this.deltaX,
                     top: event.pageY - this.deltaY
-                });
+            });
 
-                if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||
-                (event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
-                        $(this.movingBox).css({"cursor" :"url(icon_delete_small.png), auto"});
-                        }
-                        else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||
-                        (event.pageY - this.deltaY) < $("#drawing-area").height())){
-                                $(this.movingBox).css({"cursor" : "move"});
-                                printed = false;
-                        }
-            
+        if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||
+            (event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
+                $(this.movingBox).css({"cursor" :"url(icon_delete_small.png), auto"});
+                this.movingBox.text("Release to delete");
+                
+        } else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||
+                (event.pageY - this.deltaY) < $("#drawing-area").height())){
+                    $(this.movingBox).css({"cursor" : "move"});
+                    this.movingBox.text("");
+                    	printed = false;
+            } 
         }
     },
 

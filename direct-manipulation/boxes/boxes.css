@@ -58,3 +58,8 @@
 	position: absolute;
 	cursor: ne-resize;
 }
+
+.deleteState {
+    background-color: #ff7b7b;
+    text-align: center;
+}
