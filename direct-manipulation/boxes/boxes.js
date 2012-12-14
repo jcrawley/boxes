@@ -104,15 +104,19 @@ var Boxes = {
         if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||
             (event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
                 $(this.movingBox).css({"cursor" :"url(icon_delete_small.png), auto"});
-                this.movingBox.text("Release to delete");
-                this.movingBox.addClass('deleteMessage');
+                $(this.movingBox).text("Release to delete");
+                $(this.movingBox).addClass('deleteMessage');
                 
         } else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||
                 (event.pageY - this.deltaY) < $("#drawing-area").height())){
                     $(this.movingBox).css({"cursor" : "move"});
-                    this.movingBox.removeClass('deleteMessage');
-                    this.movingBox.text("");
-                    	printed = false;
+                    $(this.movingBox).text("");
+                    $(this.movingBox).removeClass('deleteMessage');
+                    $("<div></div>").appendTo(this.movingBox).addClass("bottomL");
+                    $("<div></div>").appendTo(this.movingBox).addClass("bottomR");
+                    $("<div></div>").appendTo(this.movingBox).addClass("upperL");
+                    $("<div></div>").appendTo(this.movingBox).addClass("upperR");
+                    printed = false;
             } 
         }
     },
