@@ -17,7 +17,6 @@ var Boxes = {
             // We conclude drawing on either a mouseup or a mouseleave.
             .mouseup(this.endDrag)
             .mouseleave(this.endDrag);
-            //githubff
     },
 
     /**
@@ -80,8 +79,6 @@ var Boxes = {
             this.anchorX = (this.anchorX < event.pageX) ? this.anchorX : event.pageX;
         } else if (this.resizingBox) {
             // Resizing the object.
-           // this.anchorX = this.resizingBox.width + this.resizingBox.position().left;
-          //  this.anchorY = this.resizingBox.height + this.resizingBox.position().top;
              var newOffset = {
                 left: (this.anchorX < event.pageX) ? this.anchorX : event.pageX,
                 top: (this.anchorY < event.pageY) ? this.anchorY : event.pageY
@@ -104,10 +101,12 @@ var Boxes = {
                     top: event.pageY - this.deltaY
                 });
 
-                if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||(event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
+                if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||
+                (event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
                         $(this.movingBox).css({"cursor" :"url(icon_delete_small.png), auto"});
                         }
-                        else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||(event.pageY - this.deltaY) < $("#drawing-area").height())){
+                        else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||
+                        (event.pageY - this.deltaY) < $("#drawing-area").height())){
                                 $(this.movingBox).css({"cursor" : "move"});
                                 printed = false;
                         }
@@ -146,8 +145,8 @@ var Boxes = {
             // this.movingBox.
             this.anchorX += this.beginX;
             this.anchorY += this.beginY;
-             if(((event.pageX - this.deltaX) > $("#drawing-area").width() ||(event.pageY - this.deltaY) > $("#drawing-area").height())){
-             //alert( $("#drawing-area").width() + " " + $("#drawing-area").height());
+             if(((event.pageX - this.deltaX) > $("#drawing-area").width() ||
+             (event.pageY - this.deltaY) > $("#drawing-area").height())){
                 $(this.movingBox).remove();
                 event.stopPropagation();
                 this.movingBox = null;
@@ -196,7 +195,6 @@ var Boxes = {
         // We only move using the left mouse button.
         if (event.which === Boxes.LEFT_BUTTON) {
             // Take note of the box's current (global) location.
-           // alert($(this).width())
             var jThis = $(this),//jThis is the current box
                 startOffset = jThis.offset(),
                 // Grab the drawing area (this element's parent).
@@ -208,8 +206,8 @@ var Boxes = {
             // in the middle of a move.
             parent.Box = jThis;
 
-            if(Math.abs(event.pageX - (jThis.position().left + $(this).width())) < 20 && Math.abs(event.pageY - (jThis.position().top + $(this).height())) < 20){
-                //alert(true);
+            if(Math.abs(event.pageX - (jThis.position().left + $(this).width())) < 20 && 
+            Math.abs(event.pageY - (jThis.position().top + $(this).height())) < 20){
                 parent.resizingBox = jThis;
             }
             else{
@@ -232,7 +230,6 @@ var Boxes = {
         }
     },
     resize: function (event){
-        //alert("ran");
         width = Math.abs(event.pageX - this.anchorX);
         height = Math.abs(event.pageY - this.anchorY);
     }
