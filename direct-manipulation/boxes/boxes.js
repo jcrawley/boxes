@@ -48,11 +48,11 @@ var Boxes = {
             // Take away the highlight behavior while the draw is
             // happening.
             Boxes.setupDragState();
-            $("<div></div>").appendTo(this.drawingBox)
-            .addClass("bottomR")
-            .mousedown(this.resize);
+            $("<div></div>")
+                .appendTo(this.drawingBox)
+                .addClass("bottomR")
+                .mousedown(this.resize);
         }
-
     },
 
     /**
@@ -72,46 +72,56 @@ var Boxes = {
                 .offset(newOffset)
                 .width(Math.abs(event.pageX - this.anchorX))
                 .height(Math.abs(event.pageY - this.anchorY));
+
             this.anchorX = (this.anchorX < event.pageX) ? this.anchorX : event.pageX;
-            
         } else if (this.resizingBox) {
             // Resizing the object.
-             var newOffset = {
+            var newOffset = {
                 left: (this.anchorX < event.pageX) ? this.anchorX : event.pageX,
                 top: (this.anchorY < event.pageY) ? this.anchorY : event.pageY
             };
-            this.resizingBox.offset({
-                left: event.pageX - parent.deltaX,
-                top: event.pageY - parent.deltaY
-            })
+
+            // JD: You are setting offset, width, and height on resizingBox
+            //     *twice* here.  I can see how this might be necessary, but
+            //     I think there is a way to avoid it, and either way, *this
+            //     is a perfect place for an explanatory comment*.
+            this.resizingBox
+                .offset({
+                    left: event.pageX - parent.deltaX,
+                    top: event.pageY - parent.deltaY
+                })
                 .offset(newOffset)
                 .width(Math.abs(event.pageX - this.anchorX))
-                .height(Math.abs(event.pageY - this.anchorY)); ;
-            this.resizingBox.width(Math.abs(event.pageX - this.anchorX))
+                .height(Math.abs(event.pageY - this.anchorY));
+            // JD: Why is this not chained?  Again, I can think of possible
+            //     reasons for why you might have felt this was necessary,
+            //     but I'll never know now, will I?  :)
+            this.resizingBox
+                .width(Math.abs(event.pageX - this.anchorX))
                 .height(Math.abs(event.pageY - this.anchorY));
             
         } else if (this.movingBox) {
             // Reposition the object.
 			this.anchorX = event.pageX - this.deltaX;
 			this.anchorY = event.pageY - this.deltaY;
-                this.movingBox.offset({
-                    left: event.pageX - this.deltaX,
-                    top: event.pageY - this.deltaY
+            this.movingBox.offset({
+                left: event.pageX - this.deltaX,
+                top: event.pageY - this.deltaY
             });
 
-        if((((event.pageX - this.deltaX) > $("#drawing-area").width() ||
-            (event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed){
+            if ((((event.pageX - this.deltaX) > $("#drawing-area").width() ||
+                    (event.pageY - this.deltaY) > $("#drawing-area").height())) && !printed) {
                 $(this.movingBox).css({"cursor" :"url(icon_delete_small.png), auto"});
                 $(this.movingBox).text("Release to delete");
                 $(this.movingBox).addClass('deleteMessage');
-                
-        } else if(((event.pageX - this.deltaX) < $("#drawing-area").width() ||
-                (event.pageY - this.deltaY) < $("#drawing-area").height())){
-                    $(this.movingBox).css({"cursor" : "move"});
-                    $(this.movingBox).text("");
-                    $(this.movingBox).removeClass('deleteMessage');
-                    $("<div></div>").appendTo(this.movingBox).addClass("bottomR");
-                    printed = false;
+                    
+            } else if (((event.pageX - this.deltaX) < $("#drawing-area").width() ||
+                    (event.pageY - this.deltaY) < $("#drawing-area").height())) {
+                $(this.movingBox).css({"cursor" : "move"});
+                $(this.movingBox).text("");
+                $(this.movingBox).removeClass('deleteMessage');
+                $("<div></div>").appendTo(this.movingBox).addClass("bottomR");
+                printed = false;
             } 
         }
     },
@@ -127,33 +137,32 @@ var Boxes = {
                 .mouseleave(Boxes.unhighlight)
                 .mousedown(Boxes.startMove);
 
-
             // All done.
             this.drawingBox = null;
         } else if (this.resizingBox) {
             // Change state to "not-moving-anything" by clearing out
             // this.movingBox.
-            if(this.anchorX > event.pageX){
+            if (this.anchorX > event.pageX) {
             	this.anchorX = event.pageX;
             }
-            if(this.anchorY > event.pageY){
+
+            if (this.anchorY > event.pageY) {
             	this.anchorY = event.pageY;
             }
+
             this.resizingBox = null;
             this.movingBox = null;
-
         } else if (this.movingBox) {
             // Change state to "not-moving-anything" by clearing out
             // this.movingBox.
-             if(((event.pageX - this.deltaX) > $("#drawing-area").width() ||
-             (event.pageY - this.deltaY) > $("#drawing-area").height())){
+            if (((event.pageX - this.deltaX) > $("#drawing-area").width() ||
+                    (event.pageY - this.deltaY) > $("#drawing-area").height())) {
                 $(this.movingBox).remove();
                 event.stopPropagation();
                 this.movingBox = null;
-
             }
-            this.movingBox = null;
 
+            this.movingBox = null;
         }
 
         // In either case, restore the highlight behavior that was
@@ -198,12 +207,11 @@ var Boxes = {
             // in the middle of a move.
             parent.Box = jThis;
 
-            if(Math.abs(event.pageX - (jThis.position().left + $(this).width())) < 20 && 
-            Math.abs(event.pageY - (jThis.position().top + $(this).height())) < 20){
+            if (Math.abs(event.pageX - (jThis.position().left + $(this).width())) < 20 &&
+                    Math.abs(event.pageY - (jThis.position().top + $(this).height())) < 20) {
                 parent.resizingBox = jThis;
-            }
-            else{
-            parent.movingBox = jThis;//get coordinates within drawing area
+            } else {
+                parent.movingBox = jThis; //get coordinates within drawing area
             }
             parent.deltaX = event.pageX - startOffset.left;
             parent.deltaY = event.pageY - startOffset.top;
@@ -212,14 +220,16 @@ var Boxes = {
 
             // Take away the highlight behavior while the move is
             // happening.
+            // JD: Didn't you just do this in the line above?
             Boxes.setupDragState();
 
             // Eat up the event so that the drawing area does not
             // deal with it.
-            event.stopPropagation();//pic 2 prevent the mousedown to cascade to drawing area and so on ...
+            event.stopPropagation(); //pic 2 prevent the mousedown to cascade to drawing area and so on ...
         }
     },
-    resize: function (event){
+
+    resize: function (event) {
         width = Math.abs(event.pageX - this.anchorX);
         height = Math.abs(event.pageY - this.anchorY);
     }
